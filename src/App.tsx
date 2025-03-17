@@ -1,6 +1,11 @@
+import Navbar from "./components/layout/Navbar"
+import { BrowserRouter } from 'react-router-dom';
+
 const App = () => {
   return (
-    <div className='text-3xl'>App</div>
+    <BrowserRouter>
+    <Navbar />
+    </BrowserRouter>
   )
 }
 
