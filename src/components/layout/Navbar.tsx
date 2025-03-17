@@ -13,12 +13,29 @@ const Navbar = () => {
                     </Link>
 
                     <button
-                        className="md:hidden"
+                        className="md:hidden relative w-6 h-6 focus:outline-none"
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
                     >
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-6 h-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
-                        </svg>
+                        {/* First line */}
+                        <span 
+                            className={`absolute h-0.5 w-6 bg-white transform transition-all duration-300 ease-in-out ${
+                                isMenuOpen ? 'rotate-45 top-3' : 'rotate-0 top-1'
+                            }`} 
+                        ></span>
+                        
+                        {/* Middle line */}
+                        <span 
+                            className={`absolute h-0.5 bg-white transform transition-all duration-300 ease-in-out ${
+                                isMenuOpen ? 'w-0 opacity-0 left-3' : 'w-6 opacity-100 left-0'
+                            } top-3`} 
+                        ></span>
+                        
+                        {/* Bottom line */}
+                        <span 
+                            className={`absolute h-0.5 w-6 bg-white transform transition-all duration-300 ease-in-out ${
+                                isMenuOpen ? '-rotate-45 top-3' : 'rotate-0 top-5'
+                            }`} 
+                        ></span>
                     </button>
 
                     {/* Desktop menu */}
@@ -35,20 +52,24 @@ const Navbar = () => {
                     </nav>
                 </div>
 
-                {/* Mobile menu */}
-                {isMenuOpen && (
-                    <nav className="mt-4 flex flex-col space-y-4 md:hidden">
-                        <Link to="/" className="hover:text-gray-400 transition-colors">Home</Link>
-                        <Link to="/#services" className="hover:text-gray-400 transition-colors">Services</Link>
-                        <Link to="/#barbers" className="hover:text-gray-400 transition-colors">Our Barbers</Link>
-                        <Link to="/booking" className="hover:text-gray-400 transition-colors">Book Now</Link>
-                        <Link to="/login">
-                            <button className="border border-white text-white px-4 py-2 rounded hover:bg-white hover:text-black transition-colors w-full">
+                {/* Mobile menu with height animation */}
+                <div 
+                    className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
+                        isMenuOpen ? 'max-h-72 opacity-100' : 'max-h-0 opacity-0'
+                    }`}
+                >
+                    <nav className="flex flex-col items-center space-y-5 py-6">
+                        <Link to="/" className="text-xl font-medium hover:text-gray-400 transition-colors">Home</Link>
+                        <Link to="/#services" className="text-xl font-medium hover:text-gray-400 transition-colors">Services</Link>
+                        <Link to="/#barbers" className="text-xl font-medium hover:text-gray-400 transition-colors">Our Barbers</Link>
+                        <Link to="/booking" className="text-xl font-medium hover:text-gray-400 transition-colors">Book Now</Link>
+                        <Link to="/login" className="w-3/4 text-center mt-2">
+                            <button className="border border-white text-white px-5 py-3 rounded text-lg font-medium hover:bg-white hover:text-black transition-colors w-full">
                                 Barber Login
                             </button>
                         </Link>
                     </nav>
-                )}
+                </div>
             </div>
         </header>
     );
