@@ -16,21 +16,19 @@ const Navbar = () => {
                         className="md:hidden relative w-6 h-6 focus:outline-none"
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
                     >
-                        {/* First line */}
+
                         <span 
                             className={`absolute h-0.5 w-6 bg-white transform transition-all duration-300 ease-in-out ${
                                 isMenuOpen ? 'rotate-45 top-3' : 'rotate-0 top-1'
                             }`} 
                         ></span>
                         
-                        {/* Middle line */}
                         <span 
                             className={`absolute h-0.5 bg-white transform transition-all duration-300 ease-in-out ${
                                 isMenuOpen ? 'w-0 opacity-0 left-3' : 'w-6 opacity-100 left-0'
                             } top-3`} 
                         ></span>
                         
-                        {/* Bottom line */}
                         <span 
                             className={`absolute h-0.5 w-6 bg-white transform transition-all duration-300 ease-in-out ${
                                 isMenuOpen ? '-rotate-45 top-3' : 'rotate-0 top-5'
