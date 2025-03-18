@@ -5,7 +5,7 @@ const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
-        <header className="bg-black text-white sticky top-0 z-50 shadow-md">
+        <header className="bg-black text-white sticky top-0 z-50 transition-all duration-300 md:border-b md:border-gray-800 md:shadow-sm">
             <div className="container mx-auto px-4 py-4">
                 <div className="flex justify-between items-center">
                     <Link to="/" className="text-2xl font-bold">

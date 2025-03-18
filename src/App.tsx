@@ -1,11 +1,15 @@
 import Navbar from "./components/layout/Navbar"
+import Hero from "./components/home/Hero";
 import { BrowserRouter } from 'react-router-dom';
 
 const App = () => {
   return (
-    <BrowserRouter>
-    <Navbar />
-    </BrowserRouter>
+    <div className="overflow-x-hidden">
+      <BrowserRouter>
+        <Navbar />
+        <Hero />
+      </BrowserRouter>
+    </div>
   )
 }
 
