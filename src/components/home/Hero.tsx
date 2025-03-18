@@ -7,7 +7,7 @@ const Hero = () => {
         <div className="md:w-1/2 mb-10 md:mb-0 text-center md:text-left lg:pl-24">
           <h1 className="text-4xl md:text-5xl font-bold mb-4 uppercase tracking-wider">REFINE BARBERS</h1>
           <p className="text-xl mb-8 text-gray-300">
-            Professional barbering services offering appointment and walk-ins.
+            Professional Barbers offering appointment and walk-ins.
           </p>
           <div className="mb-8 text-lg text-gray-400">
             <p>94 Winterhey Lane</p>
