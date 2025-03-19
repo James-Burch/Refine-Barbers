@@ -6,21 +6,21 @@ const Team = () => {
             id: 'rob',
             name: 'ROB CUNLIFFE',
             role: 'Owner',
-            image: 'src/assets/images/robcunliffe-pfp.png',
+            image: '/images/robcunliffe-pfp.png',
             instagram: 'rob.refine'
         },
         {
             id: 'josh',
             name: 'JOSH GILDEA',
             role: 'Mens Stylist',
-            image: 'src/assets/images/joshgildea-pfp.png',
+            image: '/images/joshgildea-pfp.png',
             instagram: 'josh_refine_'
         },
         {
             id: 'cole',
             name: 'COLE CAISLEY',
             role: 'Barber',
-            image: 'src/assets/images/colecaisley-pfp.png',
+            image: '/images/colecaisley-pfp.png',
             instagram: 'refinebycole'
         }
     ];

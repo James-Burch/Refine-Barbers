@@ -94,7 +94,7 @@ const Services = () => {
             <div
                 className="absolute inset-0 bg-fixed bg-center bg-cover bg-no-repeat z-0"
                 style={{
-                    backgroundImage: "url('src/assets/images/rob-trim-bg-pic.png')",
+                    backgroundImage: "url('/images/rob-trim-bg-pic.png')",
                     backgroundAttachment: "fixed"
                 }}
             >

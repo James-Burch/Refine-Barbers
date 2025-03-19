@@ -14,7 +14,7 @@ const Hero = () => {
             <p>Horwich, Manchester</p>
           </div>
           <Link to="/booking">
-            <button className="border-2 border-white text-white px-8 py-3 text-lg font-medium hover:bg-white hover:text-black transition-colors duration-300 uppercase tracking-wider">
+            <button className="border-2 border-white text-white px-8 py-3 text-lg font-medium hover:bg-white hover:text-black hover:cursor-pointer transition-colors duration-300 uppercase tracking-wider">
               Book Appointment
             </button>
           </Link>
@@ -22,7 +22,7 @@ const Hero = () => {
         <div className="md:w-1/2 flex justify-center">
           <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-white">
             <img 
-              src="src/assets/images/circle-logo-1.png" 
+              src="/images/circle-logo-1.png" 
               alt="Refine Barbers" 
               className="w-full h-full object-cover"
             />
