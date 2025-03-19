@@ -110,7 +110,7 @@ const Services = () => {
                 <div className="relative">
                     <button
                         onClick={scrollLeft}
-                        className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black text-white p-3 rounded-full shadow-lg hover:bg-gray-800 transition-colors focus:outline-none hidden md:block z-10"
+                        className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black text-white p-3 rounded-full shadow-lg hover:bg-gray-800 hover:cursor-pointer transition-colors focus:outline-none hidden md:block z-10"
                         aria-label="Scroll left"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -146,7 +146,7 @@ const Services = () => {
 
                     <button
                         onClick={scrollRight}
-                        className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black text-white p-3 rounded-full shadow-lg hover:bg-gray-800 transition-colors focus:outline-none hidden md:block z-10"
+                        className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black text-white p-3 rounded-full shadow-lg hover:bg-gray-800 hover:cursor-pointer transition-colors focus:outline-none hidden md:block z-10"
                         aria-label="Scroll right"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
