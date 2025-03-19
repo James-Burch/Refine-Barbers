@@ -17,22 +17,19 @@ const Navbar = () => {
                         onClick={() => setIsMenuOpen(!isMenuOpen)}
                     >
 
-                        <span 
-                            className={`absolute h-0.5 w-6 bg-white transform transition-all duration-300 ease-in-out ${
-                                isMenuOpen ? 'rotate-45 top-3' : 'rotate-0 top-1'
-                            }`} 
+                        <span
+                            className={`absolute h-0.5 w-6 bg-white transform transition-all duration-300 ease-in-out ${isMenuOpen ? 'rotate-45 top-3' : 'rotate-0 top-1'
+                                }`}
                         ></span>
-                        
-                        <span 
-                            className={`absolute h-0.5 bg-white transform transition-all duration-300 ease-in-out ${
-                                isMenuOpen ? 'w-0 opacity-0 left-3' : 'w-6 opacity-100 left-0'
-                            } top-3`} 
+
+                        <span
+                            className={`absolute h-0.5 bg-white transform transition-all duration-300 ease-in-out ${isMenuOpen ? 'w-0 opacity-0 left-3' : 'w-6 opacity-100 left-0'
+                                } top-3`}
                         ></span>
-                        
-                        <span 
-                            className={`absolute h-0.5 w-6 bg-white transform transition-all duration-300 ease-in-out ${
-                                isMenuOpen ? '-rotate-45 top-3' : 'rotate-0 top-5'
-                            }`} 
+
+                        <span
+                            className={`absolute h-0.5 w-6 bg-white transform transition-all duration-300 ease-in-out ${isMenuOpen ? '-rotate-45 top-3' : 'rotate-0 top-5'
+                                }`}
                         ></span>
                     </button>
 
@@ -51,10 +48,9 @@ const Navbar = () => {
                 </div>
 
                 {/* Mobile menu with height animation */}
-                <div 
-                    className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
-                        isMenuOpen ? 'max-h-72 opacity-100' : 'max-h-0 opacity-0'
-                    }`}
+                <div
+                    className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${isMenuOpen ? 'max-h-72 opacity-100' : 'max-h-0 opacity-0'
+                        }`}
                 >
                     <nav className="flex flex-col items-center space-y-5 py-6">
                         <Link to="/" className="text-xl font-medium hover:text-gray-400 transition-colors">Home</Link>
