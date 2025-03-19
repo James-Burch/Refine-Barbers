@@ -9,7 +9,7 @@ const Navbar = () => {
             <div className="container mx-auto px-4 py-4">
                 <div className="flex justify-between items-center">
                     <Link to="/" className="text-2xl font-bold">
-                        <img src="src/assets/images/circle-logo-1.png" alt="Refine Logo Image" className="h-12 w-12 mr-2 rounded-full" />
+                        <img src="/images/circle-logo-1.png" alt="Refine Logo Image" className="h-12 w-12 mr-2 rounded-full" />
                     </Link>
 
                     <button
