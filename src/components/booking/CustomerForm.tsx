@@ -18,8 +18,8 @@ const CustomerForm = ({ formData, onSubmit, onBack, loading }: CustomerFormProps
     const [customerName, setCustomerName] = useState('');
     const [customerPhone, setCustomerPhone] = useState('');
     const [customerEmail, setCustomerEmail] = useState('');
-    const [smsReminder, setSmsReminder] = useState(formData.smsReminder || true);
-    const [emailReminder, setEmailReminder] = useState(formData.emailReminder || true);
+    const [smsReminder, setSmsReminder] = useState<boolean>(formData.smsReminder !== undefined ? formData.smsReminder : true);
+    const [emailReminder, setEmailReminder] = useState<boolean>(formData.emailReminder !== undefined ? formData.emailReminder : true);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();

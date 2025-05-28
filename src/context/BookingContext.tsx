@@ -99,7 +99,7 @@ export const BookingProvider: React.FC<{ children: ReactNode }> = ({ children })
     };
 
     // Get services available for a specific barber
-    const getAvailableServices = (barberId: string): Service[] => {
+    const getAvailableServices = (): Service[] => {
         return services.filter(service => service.is_active);
     };
 

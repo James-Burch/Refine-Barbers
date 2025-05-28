@@ -28,13 +28,6 @@ const AdminDashboard = () => {
         return services.find(s => s.id === serviceId)?.duration || 0;
     };
 
-    const formatPrice = (price: number) => {
-        return new Intl.NumberFormat('en-GB', {
-            style: 'currency',
-            currency: 'GBP'
-        }).format(price);
-    };
-
     return (
         <div className="min-h-screen bg-black">
             {/* Header */}
@@ -178,13 +171,11 @@ const AdminDashboard = () => {
                                 )}
 
                                 {/* Debug info */}
-                                {process.env.NODE_ENV === 'development' && (
-                                    <div className="mt-4 p-3 bg-gray-800 rounded text-xs text-gray-400">
-                                        <p>Debug: Total bookings: {bookings.length}, My bookings: {myBookings.length}, Today: {todayBookings.length}</p>
-                                        <p>Current user ID: {currentUser?.id}</p>
-                                        <p>Selected date: {selectedDate}</p>
-                                    </div>
-                                )}
+                                <div className="mt-4 p-3 bg-gray-800 rounded text-xs text-gray-400">
+                                    <p>Debug: Total bookings: {bookings.length}, My bookings: {myBookings.length}, Today: {todayBookings.length}</p>
+                                    <p>Current user ID: {currentUser?.id}</p>
+                                    <p>Selected date: {selectedDate}</p>
+                                </div>
                             </div>
                         )}
 
@@ -202,9 +193,7 @@ const AdminDashboard = () => {
                                                     <input
                                                         type="checkbox"
                                                         checked={currentUser.working_days.includes(day)}
-                                                        onChange={(e) => {
-                                                            console.log('Schedule update would happen here');
-                                                        }}
+                                                        onChange={() => console.log('Schedule update would happen here')}
                                                         className="h-4 w-4 text-white focus:ring-white border-gray-600 rounded cursor-pointer"
                                                     />
                                                     <span className="ml-3 text-sm text-white uppercase">{day}</span>
@@ -221,9 +210,7 @@ const AdminDashboard = () => {
                                                 <input
                                                     type="time"
                                                     value={currentUser.working_hours.start}
-                                                    onChange={(e) => {
-                                                        console.log('Start time update would happen here');
-                                                    }}
+                                                    onChange={() => console.log('Start time update would happen here')}
                                                     className="w-full px-3 py-2 bg-black border border-gray-700 rounded-lg text-white cursor-pointer"
                                                 />
                                             </div>
@@ -232,9 +219,7 @@ const AdminDashboard = () => {
                                                 <input
                                                     type="time"
                                                     value={currentUser.working_hours.end}
-                                                    onChange={(e) => {
-                                                        console.log('End time update would happen here');
-                                                    }}
+                                                    onChange={() => console.log('End time update would happen here')}
                                                     className="w-full px-3 py-2 bg-black border border-gray-700 rounded-lg text-white cursor-pointer"
                                                 />
                                             </div>

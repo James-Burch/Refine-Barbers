@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { useBooking } from '../context/BookingContext.tsx';
-import BarberSelector from '../components/booking/BarberSelector.tsx';
-import ServiceSelector from '../components/booking/ServiceSelector.tsx';
-import DatePicker from '../components/booking/DatePicker.tsx';
-import TimeSlotPicker from '../components/booking/TimeSlotPicker.tsx';
-import CustomerForm from '../components/booking/CustomerForm.tsx';
-import ConfirmationMessage from '../components/booking/ConfirmationMessage.tsx';
+import { useBooking } from '../context/BookingContext';
+import BarberSelector from '../components/booking/BarberSelector';
+import ServiceSelector from '../components/booking/ServiceSelector';
+import DatePicker from '../components/booking/DatePicker';
+import TimeSlotPicker from '../components/booking/TimeSlotPicker';
+import CustomerForm from '../components/booking/CustomerForm';
+import ConfirmationMessage from '../components/booking/ConfirmationMessage';
 import { BookingFormData } from '../types';
 
 const BookingPage = () => {
@@ -33,19 +33,10 @@ const BookingPage = () => {
             ...customerData
         } as BookingFormData;
 
+        console.log('Submitting booking:', completeFormData);
         const success = await createBooking(completeFormData);
         if (success) {
             setIsSuccess(true);
-        }
-    };
-
-    const canProceed = (currentStep: number): boolean => {
-        switch (currentStep) {
-            case 1: return !!formData.barberId;
-            case 2: return !!formData.serviceId;
-            case 3: return !!formData.date;
-            case 4: return !!formData.time;
-            default: return false;
         }
     };
 
@@ -73,8 +64,8 @@ const BookingPage = () => {
                             <div
                                 key={num}
                                 className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium ${num <= step
-                                    ? 'bg-white text-black'
-                                    : 'bg-gray-800 text-gray-400'
+                                        ? 'bg-white text-black'
+                                        : 'bg-gray-800 text-gray-400'
                                     }`}
                             >
                                 {num}
@@ -100,7 +91,8 @@ const BookingPage = () => {
                             selectedBarberId={formData.barberId}
                             onSelect={(barberId) => {
                                 updateFormData({ barberId });
-                                if (canProceed(1)) setStep(2);
+                                // Auto-progress after selection
+                                setTimeout(() => setStep(2), 100);
                             }}
                         />
                     )}
@@ -111,7 +103,8 @@ const BookingPage = () => {
                             selectedServiceId={formData.serviceId}
                             onSelect={(serviceId) => {
                                 updateFormData({ serviceId });
-                                if (canProceed(2)) setStep(3);
+                                // Auto-progress after selection
+                                setTimeout(() => setStep(3), 100);
                             }}
                             onBack={() => setStep(1)}
                         />
@@ -123,7 +116,8 @@ const BookingPage = () => {
                             selectedDate={formData.date}
                             onSelect={(date) => {
                                 updateFormData({ date });
-                                if (canProceed(3)) setStep(4);
+                                // Auto-progress after selection
+                                setTimeout(() => setStep(4), 100);
                             }}
                             onBack={() => setStep(2)}
                         />
@@ -137,7 +131,8 @@ const BookingPage = () => {
                             selectedTime={formData.time}
                             onSelect={(time) => {
                                 updateFormData({ time });
-                                if (canProceed(4)) setStep(5);
+                                // Auto-progress after selection
+                                setTimeout(() => setStep(5), 100);
                             }}
                             onBack={() => setStep(3)}
                         />
