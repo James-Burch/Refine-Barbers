@@ -42,13 +42,18 @@ export const BookingProvider: React.FC<{ children: ReactNode }> = ({ children })
         setError(null);
 
         try {
+            console.log('Loading data from Supabase...');
+
             // Load barbers
             const { data: barbersData, error: barbersError } = await supabase
                 .from('barbers')
                 .select('*')
                 .order('name');
 
-            if (barbersError) throw barbersError;
+            if (barbersError) {
+                console.error('Barbers error:', barbersError);
+                throw barbersError;
+            }
 
             // Load services
             const { data: servicesData, error: servicesError } = await supabase
@@ -57,7 +62,10 @@ export const BookingProvider: React.FC<{ children: ReactNode }> = ({ children })
                 .eq('is_active', true)
                 .order('name');
 
-            if (servicesError) throw servicesError;
+            if (servicesError) {
+                console.error('Services error:', servicesError);
+                throw servicesError;
+            }
 
             // Load recent bookings
             const { data: bookingsData, error: bookingsError } = await supabase
@@ -67,13 +75,23 @@ export const BookingProvider: React.FC<{ children: ReactNode }> = ({ children })
                 .order('date')
                 .order('time');
 
-            if (bookingsError) throw bookingsError;
+            if (bookingsError) {
+                console.error('Bookings error:', bookingsError);
+                throw bookingsError;
+            }
+
+            console.log('Loaded data:', {
+                barbers: barbersData?.length,
+                services: servicesData?.length,
+                bookings: bookingsData?.length
+            });
 
             setBarbers(barbersData || []);
             setServices(servicesData || []);
             setBookings(bookingsData || []);
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Failed to load data');
+            const errorMessage = err instanceof Error ? err.message : 'Failed to load data';
+            setError(errorMessage);
             console.error('Load data error:', err);
         } finally {
             setLoading(false);
@@ -82,7 +100,6 @@ export const BookingProvider: React.FC<{ children: ReactNode }> = ({ children })
 
     // Get services available for a specific barber
     const getAvailableServices = (barberId: string): Service[] => {
-        // All barbers offer all services for now
         return services.filter(service => service.is_active);
     };
 
@@ -151,37 +168,49 @@ export const BookingProvider: React.FC<{ children: ReactNode }> = ({ children })
         });
     };
 
-    // Create a new booking
+    // Create a new booking - FIXED FIELD NAMES
     const createBooking = async (bookingData: BookingFormData): Promise<boolean> => {
         setLoading(true);
         setError(null);
 
         try {
+            console.log('Creating booking:', bookingData);
+
+            const bookingPayload = {
+                barber_id: bookingData.barberId,
+                service_id: bookingData.serviceId,
+                date: bookingData.date,
+                time: bookingData.time,
+                customer_name: bookingData.customerName,
+                customer_phone: bookingData.customerPhone,
+                customer_email: bookingData.customerEmail || null,
+                sms_reminder: bookingData.smsReminder,
+                email_reminder: bookingData.emailReminder,
+                status: 'confirmed'
+            };
+
+            console.log('Booking payload:', bookingPayload);
+
             const { data, error } = await supabase
                 .from('bookings')
-                .insert([{
-                    barber_id: bookingData.barberId,
-                    service_id: bookingData.serviceId,
-                    date: bookingData.date,
-                    time: bookingData.time,
-                    customer_name: bookingData.customerName,
-                    customer_phone: bookingData.customerPhone,
-                    customer_email: bookingData.customerEmail,
-                    sms_reminder: bookingData.smsReminder,
-                    email_reminder: bookingData.emailReminder,
-                    status: 'confirmed'
-                }])
+                .insert([bookingPayload])
                 .select()
                 .single();
 
-            if (error) throw error;
+            if (error) {
+                console.error('Supabase booking error:', error);
+                throw error;
+            }
+
+            console.log('Booking created successfully:', data);
 
             // Add to local state
             setBookings(prev => [...prev, data]);
 
             return true;
         } catch (err) {
-            setError(err instanceof Error ? err.message : 'Failed to create booking');
+            const errorMessage = err instanceof Error ? err.message : 'Failed to create booking';
+            setError(errorMessage);
             console.error('Create booking error:', err);
             return false;
         } finally {

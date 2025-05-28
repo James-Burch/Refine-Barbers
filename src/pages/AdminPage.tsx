@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
-import AdminLogin from '../components/admin/AdminLogin';
-import AdminDashboard from '../components/admin/AdminDashboard';
+import AdminLogin from '../components/admin/AdminLogin.tsx';
+import AdminDashboard from '../components/admin/AdminDashboard.tsx';
 
 const AdminPage = () => {
     const { currentUser } = useAuth();

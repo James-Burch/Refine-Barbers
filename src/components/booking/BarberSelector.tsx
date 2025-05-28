@@ -25,8 +25,8 @@ const BarberSelector = ({ selectedBarberId, onSelect }: BarberSelectorProps) => 
                     <button
                         key={barber.id}
                         onClick={() => onSelect(barber.id)}
-                        className={`p-6 rounded-lg border transition-all ${selectedBarberId === barber.id
-                                ? 'border-white bg-gray-800'
+                        className={`p-6 rounded-lg border transition-all cursor-pointer transform hover:scale-105 hover:font-semibold ${selectedBarberId === barber.id
+                                ? 'border-white bg-gray-800 scale-105 font-semibold'
                                 : 'border-gray-700 hover:border-gray-500 hover:bg-gray-800'
                             }`}
                     >

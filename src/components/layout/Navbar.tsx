@@ -39,7 +39,7 @@ const Navbar = () => {
                         <Link to="/#services" className="hover:text-gray-400 transition-colors">Services</Link>
                         <Link to="/#barbers" className="hover:text-gray-400 transition-colors">Our Barbers</Link>
                         <Link to="/booking" className="hover:text-gray-400 transition-colors">Book Now</Link>
-                        <Link to="/login">
+                        <Link to="/admin">
                             <button className="border border-white text-white px-4 py-2 rounded hover:bg-white hover:text-black transition-colors">
                                 Barber Login
                             </button>
@@ -57,7 +57,7 @@ const Navbar = () => {
                         <Link to="/#services" className="text-xl font-medium hover:text-gray-400 transition-colors">Services</Link>
                         <Link to="/#barbers" className="text-xl font-medium hover:text-gray-400 transition-colors">Our Barbers</Link>
                         <Link to="/booking" className="text-xl font-medium hover:text-gray-400 transition-colors">Book Now</Link>
-                        <Link to="/login" className="w-3/4 text-center mt-2">
+                        <Link to="/admin" className="w-3/4 text-center mt-2">
                             <button className="border border-white text-white px-5 py-3 rounded text-lg font-medium hover:bg-white hover:text-black transition-colors w-full">
                                 Barber Login
                             </button>
