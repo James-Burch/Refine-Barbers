@@ -126,7 +126,7 @@ const Services = () => {
                         {servicesList.map((service) => (
                             <div
                                 key={service.id}
-                                className="min-w-[300px] w-80 mx-3 snap-center first:ml-4 last:mr-4 bg-black text-white p-8 flex flex-col transition-transform duration-300 hover:-translate-y-2"
+                                className="min-w-[300px] w-80 mx-3 snap-center first:ml-4 last:mr-4 bg-black text-white p-8 flex flex-col transition-transform duration-300 hover:-translate-y-2 rounded-2xl border border-gray-800 shadow-lg hover:shadow-xl hover:border-gray-600"
                             >
                                 <h3 className="text-xl font-bold mb-3">{service.name}</h3>
                                 <p className="text-gray-300 mb-8 flex-grow">{service.description}</p>
@@ -136,7 +136,7 @@ const Services = () => {
                                 </div>
                                 <Link
                                     to={`/booking?service=${service.id}`}
-                                    className="bg-white text-black py-3 px-6 text-center hover:bg-gray-300 transition-colors duration-300 uppercase text-sm tracking-wider font-bold"
+                                    className="bg-white text-black py-3 px-6 text-center hover:bg-gray-300 transition-colors duration-300 uppercase text-sm tracking-wider font-bold rounded-lg"
                                 >
                                     BOOK NOW
                                 </Link>

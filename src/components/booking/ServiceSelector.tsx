@@ -42,7 +42,7 @@ const ServiceSelector = ({ barberId, selectedServiceId, onSelect, onBack }: Serv
                     <button
                         key={service.id}
                         onClick={() => onSelect(service.id)}
-                        className={`p-6 rounded-lg border transition-all text-left cursor-pointer transform hover:scale-105 hover:font-semibold ${selectedServiceId === service.id
+                        className={`p-6 rounded-2xl border transition-all text-left cursor-pointer transform hover:scale-105 hover:font-semibold ${selectedServiceId === service.id
                                 ? 'border-white bg-gray-800 scale-105 font-semibold'
                                 : 'border-gray-700 hover:border-gray-500 hover:bg-gray-800'
                             }`}
