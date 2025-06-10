@@ -74,30 +74,30 @@ const Navbar = () => {
 
                     {/* Desktop menu */}
                     <nav className="hidden md:flex items-center space-x-6">
-                        <Link to="/" className="hover:text-gray-400 transition-colors cursor-pointer">
+                        <Link to="/" className="uppercase hover:text-gray-400 transition-colors cursor-pointer">
                             Home
                         </Link>
                         <button
                             onClick={() => handleHashClick('services')}
-                            className="hover:text-gray-400 transition-colors cursor-pointer"
+                            className="uppercase hover:text-gray-400 transition-colors cursor-pointer"
                         >
                             Services
                         </button>
                         <button
                             onClick={() => handleHashClick('team')}
-                            className="hover:text-gray-400 transition-colors cursor-pointer"
+                            className="uppercase hover:text-gray-400 transition-colors cursor-pointer"
                         >
                             Our Barbers
                         </button>
                         <Link
                             to="/booking"
-                            className="hover:text-gray-400 transition-colors cursor-pointer"
+                            className="uppercase hover:text-gray-400 transition-colors cursor-pointer"
                             onClick={() => setIsMenuOpen(false)}
                         >
                             Book Now
                         </Link>
                         <Link to="/admin">
-                            <button className="border border-white text-white px-4 py-2 rounded hover:bg-white hover:text-black transition-colors cursor-pointer">
+                            <button className="uppercase border border-white text-white px-4 py-2 rounded hover:bg-white hover:text-black transition-colors cursor-pointer">
                                 Barber Login
                             </button>
                         </Link>
@@ -112,26 +112,26 @@ const Navbar = () => {
                     <nav className="flex flex-col items-center space-y-5 py-6">
                         <Link
                             to="/"
-                            className="text-xl font-medium hover:text-gray-400 transition-colors cursor-pointer"
+                            className="uppercase text-xl font-medium hover:text-gray-400 transition-colors cursor-pointer"
                             onClick={() => setIsMenuOpen(false)}
                         >
                             Home
                         </Link>
                         <button
                             onClick={() => handleHashClick('services')}
-                            className="text-xl font-medium hover:text-gray-400 transition-colors cursor-pointer"
+                            className="uppercase text-xl font-medium hover:text-gray-400 transition-colors cursor-pointer"
                         >
                             Services
                         </button>
                         <button
                             onClick={() => handleHashClick('team')}
-                            className="text-xl font-medium hover:text-gray-400 transition-colors cursor-pointer"
+                            className="uppercase text-xl font-medium hover:text-gray-400 transition-colors cursor-pointer"
                         >
                             Our Barbers
                         </button>
                         <Link
                             to="/booking"
-                            className="text-xl font-medium hover:text-gray-400 transition-colors cursor-pointer"
+                            className="uppercase text-xl font-medium hover:text-gray-400 transition-colors cursor-pointer"
                             onClick={() => setIsMenuOpen(false)}
                         >
                             Book Now
@@ -141,7 +141,7 @@ const Navbar = () => {
                             className="w-3/4 text-center mt-2"
                             onClick={() => setIsMenuOpen(false)}
                         >
-                            <button className="border border-white text-white px-5 py-3 rounded text-lg font-medium hover:bg-white hover:text-black transition-colors w-full cursor-pointer">
+                            <button className="uppercase border border-white text-white px-5 py-3 rounded text-lg font-medium hover:bg-white hover:text-black transition-colors w-full cursor-pointer">
                                 Barber Login
                             </button>
                         </Link>
