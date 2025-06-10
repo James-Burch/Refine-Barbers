@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useBooking } from '../context/BookingContext';
 import BarberSelector from '../components/booking/BarberSelector';
 import ServiceSelector from '../components/booking/ServiceSelector';
@@ -16,6 +16,16 @@ const BookingPage = () => {
         smsReminder: true,
         emailReminder: true
     });
+
+    // Scroll to top when component mounts
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    // Scroll to booking form when step changes
+    useEffect(() => {
+        window.scrollTo({ top: 120, behavior: 'smooth' });
+    }, [step]);
 
     const updateFormData = (updates: Partial<BookingFormData>) => {
         setFormData(prev => ({ ...prev, ...updates }));
@@ -44,6 +54,8 @@ const BookingPage = () => {
         setIsSuccess(false);
         setStep(1);
         setFormData({ smsReminder: true, emailReminder: true });
+        // Scroll to top when resetting form
+        window.scrollTo(0, 0);
     };
 
     if (isSuccess) {
@@ -64,8 +76,8 @@ const BookingPage = () => {
                             <div
                                 key={num}
                                 className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-medium ${num <= step
-                                        ? 'bg-white text-black'
-                                        : 'bg-gray-800 text-gray-400'
+                                    ? 'bg-white text-black'
+                                    : 'bg-gray-800 text-gray-400'
                                     }`}
                             >
                                 {num}
