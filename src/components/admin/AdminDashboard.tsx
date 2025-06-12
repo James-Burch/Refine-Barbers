@@ -2,27 +2,15 @@ import { useState } from 'react';
 import { useAuth } from '../../context/AuthContext';
 import { useBooking } from '../../context/BookingContext';
 import { format } from 'date-fns';
-import { supabase } from '../../lib/supabase';
 import AdminDatePicker from './AdminDatePicker';
-
-interface EditingBooking {
-    id: string;
-    barber_id: string;
-    service_id: string;
-    date: string;
-    time: string;
-    customer_name: string;
-    customer_phone: string;
-    customer_email?: string;
-    status: string;
-}
+import EditBookingModal from './EditBookingModal';
 
 const AdminDashboard = () => {
     const { currentUser, logout } = useAuth();
-    const { bookings, barbers, services, loading, loadData } = useBooking();
+    const { bookings, barbers, services, loading, loadData, updateBooking, deleteBooking } = useBooking();
     const [activeTab, setActiveTab] = useState<'bookings' | 'schedule' | 'team'>('bookings');
     const [selectedDate, setSelectedDate] = useState(format(new Date(), 'yyyy-MM-dd'));
-    const [editingBooking, setEditingBooking] = useState<EditingBooking | null>(null);
+    const [editingBooking, setEditingBooking] = useState<any | null>(null);
     const [isUpdating, setIsUpdating] = useState(false);
 
     // Refresh data when tab changes to bookings
@@ -51,42 +39,19 @@ const AdminDashboard = () => {
     };
 
     const handleEditBooking = (booking: any) => {
-        setEditingBooking({
-            id: booking.id,
-            barber_id: booking.barber_id,
-            service_id: booking.service_id,
-            date: booking.date,
-            time: booking.time,
-            customer_name: booking.customer_name,
-            customer_phone: booking.customer_phone,
-            customer_email: booking.customer_email || '',
-            status: booking.status
-        });
+        setEditingBooking(booking);
     };
 
-    const handleUpdateBooking = async () => {
-        if (!editingBooking) return;
-
+    const handleUpdateBooking = async (bookingId: string, updates: Partial<any>) => {
         setIsUpdating(true);
         try {
-            const { error } = await supabase
-                .from('bookings')
-                .update({
-                    barber_id: editingBooking.barber_id,
-                    service_id: editingBooking.service_id,
-                    date: editingBooking.date,
-                    time: editingBooking.time,
-                    customer_name: editingBooking.customer_name,
-                    customer_phone: editingBooking.customer_phone,
-                    customer_email: editingBooking.customer_email || null,
-                    status: editingBooking.status
-                })
-                .eq('id', editingBooking.id);
-
-            if (error) throw error;
-
-            setEditingBooking(null);
-            await loadData(); // Refresh the data
+            const success = await updateBooking(bookingId, updates);
+            if (success) {
+                setEditingBooking(null);
+                await loadData(); // Refresh the data
+            } else {
+                console.error('Failed to update booking');
+            }
         } catch (error) {
             console.error('Error updating booking:', error);
         } finally {
@@ -98,14 +63,12 @@ const AdminDashboard = () => {
         if (!confirm('Are you sure you want to delete this booking?')) return;
 
         try {
-            const { error } = await supabase
-                .from('bookings')
-                .delete()
-                .eq('id', bookingId);
-
-            if (error) throw error;
-
-            await loadData(); // Refresh the data
+            const success = await deleteBooking(bookingId);
+            if (success) {
+                await loadData(); // Refresh the data
+            } else {
+                console.error('Failed to delete booking');
+            }
         } catch (error) {
             console.error('Error deleting booking:', error);
         }
@@ -379,118 +342,14 @@ const AdminDashboard = () => {
 
             {/* Edit Booking Modal */}
             {editingBooking && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-                    <div className="bg-gray-900 rounded-lg p-6 w-full max-w-2xl">
-                        <h3 className="text-lg font-medium text-white mb-4">Edit Booking</h3>
-                        
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                            <div>
-                                <label className="block text-sm font-medium text-gray-300 mb-2">Barber</label>
-                                <select
-                                    value={editingBooking.barber_id}
-                                    onChange={(e) => setEditingBooking({...editingBooking, barber_id: e.target.value})}
-                                    className="w-full px-3 py-2 bg-black border border-gray-700 rounded-lg text-white"
-                                >
-                                    {barbers.map(barber => (
-                                        <option key={barber.id} value={barber.id}>{barber.name}</option>
-                                    ))}
-                                </select>
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-medium text-gray-300 mb-2">Service</label>
-                                <select
-                                    value={editingBooking.service_id}
-                                    onChange={(e) => setEditingBooking({...editingBooking, service_id: e.target.value})}
-                                    className="w-full px-3 py-2 bg-black border border-gray-700 rounded-lg text-white"
-                                >
-                                    {services.map(service => (
-                                        <option key={service.id} value={service.id}>{service.name}</option>
-                                    ))}
-                                </select>
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-medium text-gray-300 mb-2">Date</label>
-                                <input
-                                    type="date"
-                                    value={editingBooking.date}
-                                    onChange={(e) => setEditingBooking({...editingBooking, date: e.target.value})}
-                                    className="w-full px-3 py-2 bg-black border border-gray-700 rounded-lg text-white"
-                                />
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-medium text-gray-300 mb-2">Time</label>
-                                <input
-                                    type="time"
-                                    value={editingBooking.time}
-                                    onChange={(e) => setEditingBooking({...editingBooking, time: e.target.value})}
-                                    className="w-full px-3 py-2 bg-black border border-gray-700 rounded-lg text-white"
-                                />
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-medium text-gray-300 mb-2">Customer Name</label>
-                                <input
-                                    type="text"
-                                    value={editingBooking.customer_name}
-                                    onChange={(e) => setEditingBooking({...editingBooking, customer_name: e.target.value})}
-                                    className="w-full px-3 py-2 bg-black border border-gray-700 rounded-lg text-white"
-                                />
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-medium text-gray-300 mb-2">Customer Phone</label>
-                                <input
-                                    type="tel"
-                                    value={editingBooking.customer_phone}
-                                    onChange={(e) => setEditingBooking({...editingBooking, customer_phone: e.target.value})}
-                                    className="w-full px-3 py-2 bg-black border border-gray-700 rounded-lg text-white"
-                                />
-                            </div>
-
-                            <div className="md:col-span-2">
-                                <label className="block text-sm font-medium text-gray-300 mb-2">Customer Email</label>
-                                <input
-                                    type="email"
-                                    value={editingBooking.customer_email}
-                                    onChange={(e) => setEditingBooking({...editingBooking, customer_email: e.target.value})}
-                                    className="w-full px-3 py-2 bg-black border border-gray-700 rounded-lg text-white"
-                                />
-                            </div>
-
-                            <div>
-                                <label className="block text-sm font-medium text-gray-300 mb-2">Status</label>
-                                <select
-                                    value={editingBooking.status}
-                                    onChange={(e) => setEditingBooking({...editingBooking, status: e.target.value})}
-                                    className="w-full px-3 py-2 bg-black border border-gray-700 rounded-lg text-white"
-                                >
-                                    <option value="confirmed">Confirmed</option>
-                                    <option value="cancelled">Cancelled</option>
-                                    <option value="completed">Completed</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div className="flex space-x-4">
-                            <button
-                                onClick={handleUpdateBooking}
-                                disabled={isUpdating}
-                                className="flex-1 bg-white text-black py-2 px-4 rounded-lg hover:bg-gray-100 transition-colors disabled:opacity-50"
-                            >
-                                {isUpdating ? 'Updating...' : 'Update Booking'}
-                            </button>
-                            <button
-                                onClick={() => setEditingBooking(null)}
-                                className="flex-1 bg-gray-800 text-white py-2 px-4 rounded-lg hover:bg-gray-700 transition-colors border border-gray-600"
-                            >
-                                Cancel
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                <EditBookingModal
+                    booking={editingBooking}
+                    barbers={barbers}
+                    services={services}
+                    isUpdating={isUpdating}
+                    onUpdate={handleUpdateBooking}
+                    onClose={() => setEditingBooking(null)}
+                />
             )}
         </div>
     );
