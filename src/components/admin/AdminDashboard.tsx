@@ -32,8 +32,8 @@ const AdminDashboard = () => {
         }
     };
 
-    const myBookings = currentUser?.role === 'super-admin'
-        ? bookings
+    const myBookings = currentUser?.role === 'super-admin' 
+        ? bookings 
         : bookings.filter(booking => booking.barber_id === currentUser?.id);
     const todayBookings = myBookings.filter(booking => booking.date === selectedDate);
 
@@ -161,8 +161,8 @@ const AdminDashboard = () => {
                                     key={tab}
                                     onClick={() => handleTabChange(tab as any)}
                                     className={`py-4 px-1 border-b-2 font-medium text-sm uppercase tracking-wide cursor-pointer hover:font-semibold transition-all ${activeTab === tab
-                                        ? 'border-white text-white font-semibold'
-                                        : 'border-transparent text-gray-400 hover:text-gray-300'
+                                            ? 'border-white text-white font-semibold'
+                                            : 'border-transparent text-gray-400 hover:text-gray-300'
                                         }`}
                                 >
                                     {tab}
@@ -191,12 +191,40 @@ const AdminDashboard = () => {
                                     <label className="block text-sm font-medium text-gray-300 mb-2">
                                         Filter by Date
                                     </label>
-                                    <input
-                                        type="date"
-                                        value={selectedDate}
-                                        onChange={(e) => setSelectedDate(e.target.value)}
-                                        className="px-3 py-2 bg-black border border-gray-700 rounded-lg text-white focus:border-white focus:outline-none cursor-pointer"
-                                    />
+                                    <div className="flex items-center space-x-3">
+                                        <input
+                                            type="date"
+                                            value={selectedDate}
+                                            onChange={(e) => setSelectedDate(e.target.value)}
+                                            className="px-3 py-2 bg-black border border-gray-700 rounded-lg text-white focus:border-white focus:outline-none cursor-pointer"
+                                        />
+                                        <button
+                                            onClick={() => setSelectedDate(format(new Date(), 'yyyy-MM-dd'))}
+                                            className="px-3 py-2 bg-gray-800 text-gray-300 rounded-lg hover:bg-gray-700 hover:text-white transition-colors text-sm"
+                                        >
+                                            Today
+                                        </button>
+                                        <button
+                                            onClick={() => {
+                                                const yesterday = new Date();
+                                                yesterday.setDate(yesterday.getDate() - 1);
+                                                setSelectedDate(format(yesterday, 'yyyy-MM-dd'));
+                                            }}
+                                            className="px-3 py-2 bg-gray-800 text-gray-300 rounded-lg hover:bg-gray-700 hover:text-white transition-colors text-sm"
+                                        >
+                                            Yesterday
+                                        </button>
+                                        <button
+                                            onClick={() => {
+                                                const tomorrow = new Date();
+                                                tomorrow.setDate(tomorrow.getDate() + 1);
+                                                setSelectedDate(format(tomorrow, 'yyyy-MM-dd'));
+                                            }}
+                                            className="px-3 py-2 bg-gray-800 text-gray-300 rounded-lg hover:bg-gray-700 hover:text-white transition-colors text-sm"
+                                        >
+                                            Tomorrow
+                                        </button>
+                                    </div>
                                 </div>
 
                                 {loading ? (
@@ -386,13 +414,13 @@ const AdminDashboard = () => {
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
                     <div className="bg-gray-900 rounded-lg p-6 w-full max-w-2xl">
                         <h3 className="text-lg font-medium text-white mb-4">Edit Booking</h3>
-
+                        
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                             <div>
                                 <label className="block text-sm font-medium text-gray-300 mb-2">Barber</label>
                                 <select
                                     value={editingBooking.barber_id}
-                                    onChange={(e) => setEditingBooking({ ...editingBooking, barber_id: e.target.value })}
+                                    onChange={(e) => setEditingBooking({...editingBooking, barber_id: e.target.value})}
                                     className="w-full px-3 py-2 bg-black border border-gray-700 rounded-lg text-white"
                                 >
                                     {barbers.map(barber => (
@@ -405,7 +433,7 @@ const AdminDashboard = () => {
                                 <label className="block text-sm font-medium text-gray-300 mb-2">Service</label>
                                 <select
                                     value={editingBooking.service_id}
-                                    onChange={(e) => setEditingBooking({ ...editingBooking, service_id: e.target.value })}
+                                    onChange={(e) => setEditingBooking({...editingBooking, service_id: e.target.value})}
                                     className="w-full px-3 py-2 bg-black border border-gray-700 rounded-lg text-white"
                                 >
                                     {services.map(service => (
@@ -419,7 +447,7 @@ const AdminDashboard = () => {
                                 <input
                                     type="date"
                                     value={editingBooking.date}
-                                    onChange={(e) => setEditingBooking({ ...editingBooking, date: e.target.value })}
+                                    onChange={(e) => setEditingBooking({...editingBooking, date: e.target.value})}
                                     className="w-full px-3 py-2 bg-black border border-gray-700 rounded-lg text-white"
                                 />
                             </div>
@@ -429,7 +457,7 @@ const AdminDashboard = () => {
                                 <input
                                     type="time"
                                     value={editingBooking.time}
-                                    onChange={(e) => setEditingBooking({ ...editingBooking, time: e.target.value })}
+                                    onChange={(e) => setEditingBooking({...editingBooking, time: e.target.value})}
                                     className="w-full px-3 py-2 bg-black border border-gray-700 rounded-lg text-white"
                                 />
                             </div>
@@ -439,7 +467,7 @@ const AdminDashboard = () => {
                                 <input
                                     type="text"
                                     value={editingBooking.customer_name}
-                                    onChange={(e) => setEditingBooking({ ...editingBooking, customer_name: e.target.value })}
+                                    onChange={(e) => setEditingBooking({...editingBooking, customer_name: e.target.value})}
                                     className="w-full px-3 py-2 bg-black border border-gray-700 rounded-lg text-white"
                                 />
                             </div>
@@ -449,7 +477,7 @@ const AdminDashboard = () => {
                                 <input
                                     type="tel"
                                     value={editingBooking.customer_phone}
-                                    onChange={(e) => setEditingBooking({ ...editingBooking, customer_phone: e.target.value })}
+                                    onChange={(e) => setEditingBooking({...editingBooking, customer_phone: e.target.value})}
                                     className="w-full px-3 py-2 bg-black border border-gray-700 rounded-lg text-white"
                                 />
                             </div>
@@ -459,7 +487,7 @@ const AdminDashboard = () => {
                                 <input
                                     type="email"
                                     value={editingBooking.customer_email}
-                                    onChange={(e) => setEditingBooking({ ...editingBooking, customer_email: e.target.value })}
+                                    onChange={(e) => setEditingBooking({...editingBooking, customer_email: e.target.value})}
                                     className="w-full px-3 py-2 bg-black border border-gray-700 rounded-lg text-white"
                                 />
                             </div>
@@ -468,7 +496,7 @@ const AdminDashboard = () => {
                                 <label className="block text-sm font-medium text-gray-300 mb-2">Status</label>
                                 <select
                                     value={editingBooking.status}
-                                    onChange={(e) => setEditingBooking({ ...editingBooking, status: e.target.value })}
+                                    onChange={(e) => setEditingBooking({...editingBooking, status: e.target.value})}
                                     className="w-full px-3 py-2 bg-black border border-gray-700 rounded-lg text-white"
                                 >
                                     <option value="confirmed">Confirmed</option>
