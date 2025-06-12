@@ -3,6 +3,7 @@ import { useAuth } from '../../context/AuthContext';
 import { useBooking } from '../../context/BookingContext';
 import { format } from 'date-fns';
 import { supabase } from '../../lib/supabase';
+import AdminDatePicker from './AdminDatePicker';
 
 interface EditingBooking {
     id: string;
@@ -188,43 +189,10 @@ const AdminDashboard = () => {
                                 </div>
 
                                 <div className="mb-6">
-                                    <label className="block text-sm font-medium text-gray-300 mb-2">
-                                        Filter by Date
-                                    </label>
-                                    <div className="flex items-center space-x-3">
-                                        <input
-                                            type="date"
-                                            value={selectedDate}
-                                            onChange={(e) => setSelectedDate(e.target.value)}
-                                            className="px-3 py-2 bg-black border border-gray-700 rounded-lg text-white focus:border-white focus:outline-none cursor-pointer"
-                                        />
-                                        <button
-                                            onClick={() => setSelectedDate(format(new Date(), 'yyyy-MM-dd'))}
-                                            className="px-3 py-2 bg-gray-800 text-gray-300 rounded-lg hover:bg-gray-700 hover:text-white transition-colors text-sm"
-                                        >
-                                            Today
-                                        </button>
-                                        <button
-                                            onClick={() => {
-                                                const yesterday = new Date();
-                                                yesterday.setDate(yesterday.getDate() - 1);
-                                                setSelectedDate(format(yesterday, 'yyyy-MM-dd'));
-                                            }}
-                                            className="px-3 py-2 bg-gray-800 text-gray-300 rounded-lg hover:bg-gray-700 hover:text-white transition-colors text-sm"
-                                        >
-                                            Yesterday
-                                        </button>
-                                        <button
-                                            onClick={() => {
-                                                const tomorrow = new Date();
-                                                tomorrow.setDate(tomorrow.getDate() + 1);
-                                                setSelectedDate(format(tomorrow, 'yyyy-MM-dd'));
-                                            }}
-                                            className="px-3 py-2 bg-gray-800 text-gray-300 rounded-lg hover:bg-gray-700 hover:text-white transition-colors text-sm"
-                                        >
-                                            Tomorrow
-                                        </button>
-                                    </div>
+                                    <AdminDatePicker 
+                                        selectedDate={selectedDate}
+                                        onDateSelect={setSelectedDate}
+                                    />
                                 </div>
 
                                 {loading ? (
